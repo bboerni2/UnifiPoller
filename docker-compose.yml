@@ -17,6 +17,8 @@ services:
       - UP_UNIFI_DEFAULT_SITE_0=${UP_UNIFI_DEFAULT_SITE_0}
       - UP_UNIFI_DEFAULT_SAVE_DPI=true
       - UP_UNIFI_DEFAULT_ALLOW_INSECURE=true
+      - UP_UNIFI_DEFAULT_SAVE_DPI=true
+
 
   prometheus:
     build:
