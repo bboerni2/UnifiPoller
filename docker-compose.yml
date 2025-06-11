@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   unpoller:
     image: ghcr.io/unpoller/unpoller:latest
@@ -18,7 +19,10 @@ services:
       - UP_UNIFI_CONTROLLER_0_ALLOW_INSECURE=${UNIFI_INSECURE_SSL}
 
   prometheus:
-    image: prom/prometheus:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.prometheus
+    image: yourorg/prometheus-custom:latest
     container_name: prometheus
     restart: unless-stopped
     env_file:
@@ -27,12 +31,12 @@ services:
       - "9090:9090"
     volumes:
       - prometheus_data:/prometheus
-      - type: bind
-        source: ./prometheus
-        target: /etc/prometheus
 
   grafana:
-    image: grafana/grafana-oss:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.grafana
+    image: yourorg/grafana-custom:latest
     container_name: grafana
     restart: unless-stopped
     env_file:
@@ -41,9 +45,6 @@ services:
       - "3001:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - type: bind
-        source: ./grafana/provisioning
-        target: /etc/grafana/provisioning
 
 volumes:
   prometheus_data:

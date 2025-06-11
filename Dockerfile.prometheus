@@ -1,0 +1,3 @@
+FROM prom/prometheus:latest
+# Deine prometheus.yml wird hier in das Image kopiert
+COPY prometheus/prometheus.yml /etc/prometheus/prometheus.yml
