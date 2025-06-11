@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prometheus
-    image: yourorg/prometheus-custom:latest
+    image: prom/prometheus:latest
     container_name: prometheus
     restart: unless-stopped
     env_file:
