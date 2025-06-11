@@ -36,7 +36,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.grafana
-    image: yourorg/grafana-custom:latest
+    image: grafana/grafana-oss:latest
     container_name: grafana
     restart: unless-stopped
     env_file:
