@@ -1,20 +1,19 @@
+
 services:
-  unifipoller:
-    image: mdlayher/unifi_exporter:latest
-    container_name: unifipoller
+  unpoller:
+    image: golift/unpoller:latest
+    container_name: unpoller
     restart: unless-stopped
     env_file:
       - .env
     ports:
       - "9130:9130"
-    command:
-      - "--controller.host=$(UNIFI_CONTROLLER_HOST)"
-      - "--controller.port=$(UNIFI_CONTROLLER_PORT)"
-      - "--controller.site=$(UNIFI_CONTROLLER_SITE)"
-      - "--controller.user=$(UNIFI_CONTROLLER_USER)"
-      - "--controller.pass=$(UNIFI_CONTROLLER_PASS)"
-      - "--controller.allow-insecure=$(UNIFI_INSECURE_SSL)"
-      - "--web.listen-address=:9130"
+    environment:
+      UP_UNIFI_DEFAULT_ROLE: "default"
+      UP_UNIFI_URL: "${UNIFI_CONTROLLER_HOST}:${UNIFI_CONTROLLER_PORT}"
+      UP_UNIFI_USER: "${UNIFI_CONTROLLER_USER}"
+      UP_UNIFI_PASS: "${UNIFI_CONTROLLER_PASS}"
+      UP_INSECURE_SKIP_VERIFY: "${UNIFI_INSECURE_SSL}"
 
   prometheus:
     image: prom/prometheus:latest
